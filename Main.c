@@ -5,7 +5,7 @@
 #include <time.h>
 #include "matriz.h"
 int main() {
-    unsigned int N=700;
+    unsigned int N=720;
     float A[N][N];
     float B[N][N];
     for(unsigned int i=0;i<N;i++) {
@@ -15,11 +15,15 @@ int main() {
         }
     }
     long int ini=clock();
-    multiplica_coluna(N,A,B);
+    for(unsigned int i=0;i<5;i++) {
+        multiplica_coluna(N,A,B);
+    }
     long int fin=clock()-ini;
-    printf("tempo decorrido ijk foi: %ld\n",fin);
+    printf("tempo decorrido ijk foi: %ld\n",fin/5);
     ini=clock();
-    multiplica_linha(N,A,B);
+    for(unsigned int i=0;i<5;i++) {
+        multiplica_linha(N,A,B);
+    }
     fin=clock()-ini;
-    printf("tempo decorrido ikj foi: %ld",fin);
+    printf("tempo decorrido ikj foi: %ld",fin/5);
 }
