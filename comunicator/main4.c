@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
     int dims[N_dims], coords[N_dims],periódico[N_dims];
     MPI_Comm Comunicador_2d;
     //Variáveis locais
-    int rank,rank_cartesiano;
+    int rank,rank_cartesiano,vizinho_cima,vizinho_baixo,vizinho_direita,vizinho_esquerda;
 
     MPI_Init(&argc, &argv);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -26,7 +26,13 @@ int main(int argc, char *argv[]) {
     MPI_Cart_coords(Comunicador_2d,rank,N_dims,coords);
     MPI_Cart_rank(Comunicador_2d,coords,&rank_cartesiano);
 
+
+
+    MPI_Cart_shift(Comunicador_2d,0,1,&vizinho_esquerda,&vizinho_direita);
+    MPI_Cart_shift(Comunicador_2d,1,1,&vizinho_baixo,&vizinho_cima);
+
     printf("%d:Rank cartesiano é %d, coordenadas (%d,%d)\n",rank,rank_cartesiano,coords[0],coords[1]);
+    printf("%d:Meu vizinho a direita é:%d,na esquerda:%d,pra cima:%d,pra baixo:%d\n",rank,vizinho_direita,vizinho_esquerda,vizinho_cima,vizinho_baixo);
 
     MPI_Comm_free(&Comunicador_2d);
     MPI_Finalize();
